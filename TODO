@@ -2,5 +2,5 @@
 + Write basic HTML template with Github user and repository name
 + Write directives
 + Write controllers logic
-- Write service to query Github API
++ Write service to query Github API
 - Refactor
