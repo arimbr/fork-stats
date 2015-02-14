@@ -1,5 +1,5 @@
 + Write basic AngularJS project structure
-- Write basic HTML template with Github user and repository name
++ Write basic HTML template with Github user and repository name
 - Write directives
 - Write controllers logic
 - Write service to query Github API
