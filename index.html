@@ -4,11 +4,11 @@
         <meta charset="UTF-8">
         <title>Github fork stats</title>
     </head>
-    <body>
+    <body ng-controller="ForkController as forkCtrl" ng-submit="forkCtrl.getForks()">
         <h1>See who has forked a Github repository</h1>
         <form>
-            <input type="text" name="user" placeholder="user">
-            <input type="text" name="repo" placeholder="repository">
+            <input ng-model="forkCtrl.search.user" type="text" name="user" placeholder="user">
+            <input ng-model="forkCtrl.search.repo" type="text" name="repo" placeholder="repository">
             <input type="submit" value="Get forks">
         </form>
         <script type="text/javascript" src="lib/angular.js"></script>
