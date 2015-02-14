@@ -11,6 +11,12 @@
             <input ng-model="forkCtrl.search.repo" type="text" name="repo" placeholder="repository">
             <input type="submit" value="Get forks">
         </form>
+        <section>
+            <h2>Forks</h2>
+            <div ng-repeat="fork in forkCtrl.forks">
+                <p>{{fork.owner.login}}</p>
+            </div>
+        </section>
         <script type="text/javascript" src="lib/angular.js"></script>
         <script type="text/javascript" src="app.js"></script>   
     </body>
