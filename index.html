@@ -2,23 +2,35 @@
 <html ng-app="forks">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Github fork stats</title>
+        <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
+        <link rel="stylesheet" href="css/style.css" type="text/css">
     </head>
-    <body ng-controller="ForksController">
-        <h1>See who has forked a Github repository</h1>
-        <form ng-submit="getForks()">
-            <input ng-model="user" type="text" name="user" placeholder="user">
-            <input ng-model="repo" type="text" name="repo" placeholder="repository">
-            <input type="submit" value="Get forks">
-        </form>
-        <section>
-            <h2>Forks</h2>
-            <ul ng-repeat="fork in forks">
-                <li>{{fork.owner.login}} | {{fork.created_at | date}}</li>
+    <body class="container" ng-controller="ForksController">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Github repository forks</a>
+                </div>
+                <form class="navbar-form left" role="search" ng-submit="getForks()">
+                    <input class="form-control" ng-model="user" name="user" type="text" placeholder="user">
+                    <input class="form-control" ng-model="repo" name="repo" type="text" placeholder="repository">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+        <article class="panel panel-default">
+            <div class="panel-heading">Forks</div>
+            <ul class="list-group" ng-repeat="fork in forks">
+                <li class="list-group-item">
+                    {{fork.owner.login}}
+                    <span class="pull-right">{{fork.created_at | date}}</span>
+                </li>
             </ul>
-        </section>
+        </article>
         <script type="text/javascript" src="lib/angular.js"></script>
         <script type="text/javascript"src="lib/angular-resource.js"></script>
-        <script type="text/javascript" src="app.js"></script>   
+        <script type="text/javascript" src="js/app.js"></script>
     </body>
 </html>
