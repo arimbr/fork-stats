@@ -6,21 +6,22 @@
 (function() {
 // Self executing function to ensure that code is not declared
 // in the global scope
-    var app = angular.module('forks', []);
+    var app = angular.module('forks', ['ngResource']);
+
+    // Add factory Forks
+    // http://www.sitepoint.com/creating-crud-app-minutes-angulars-resource/
+    app.factory('Forks', ['$resource', function($resource){
+        return $resource('https://api.github.com/repos/:user/:repo/forks');
+    }]);
 
     // Implement Fork controller
-    app.controller('ForkController', function($http){
-        var fork = this;  // Store this to be accesible in getForks
-        fork.search = {};  // initialize search data
-        fork.forks = [];  // initialize forks because page will render before
+    app.controller('ForksController', ['$scope', 'Forks', function($scope, Forks){
+        $scope.forks = {};  // initialize forks because page will render before
 
-        this.getForks = function() {
-            var forksURL = 'https://api.github.com/repos/' + fork.search.user + '/' + fork.search.repo + '/forks';
-            $http.get(forksURL).success(function(data) {  // data is automatically parsed from JSON to JS object
-                console.log(data);
-                fork.forks = data;
+        $scope.getForks = function() {
+            Forks.query({user: $scope.user, repo: $scope.repo}, function(data){  // query expects array data
+                $scope.forks = data;
             });
-            fork.search = {};  // clear form data after submit
         };
-    });
+    }]);
 })();

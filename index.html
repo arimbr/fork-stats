@@ -4,20 +4,21 @@
         <meta charset="UTF-8">
         <title>Github fork stats</title>
     </head>
-    <body ng-controller="ForkController as forkCtrl" ng-submit="forkCtrl.getForks()">
+    <body ng-controller="ForksController">
         <h1>See who has forked a Github repository</h1>
-        <form>
-            <input ng-model="forkCtrl.search.user" type="text" name="user" placeholder="user">
-            <input ng-model="forkCtrl.search.repo" type="text" name="repo" placeholder="repository">
+        <form ng-submit="getForks()">
+            <input ng-model="user" type="text" name="user" placeholder="user">
+            <input ng-model="repo" type="text" name="repo" placeholder="repository">
             <input type="submit" value="Get forks">
         </form>
         <section>
             <h2>Forks</h2>
-            <div ng-repeat="fork in forkCtrl.forks">
-                <p>{{fork.owner.login}} | {{fork.created_at | date}}</p>
-            </div>
+            <ul ng-repeat="fork in forks">
+                <li>{{fork.owner.login}} | {{fork.created_at | date}}</li>
+            </ul>
         </section>
         <script type="text/javascript" src="lib/angular.js"></script>
+        <script type="text/javascript"src="lib/angular-resource.js"></script>
         <script type="text/javascript" src="app.js"></script>   
     </body>
 </html>
