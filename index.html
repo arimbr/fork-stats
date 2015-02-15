@@ -7,11 +7,11 @@
         <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
         <link rel="stylesheet" href="css/style.css" type="text/css">
     </head>
-    <body class="container" ng-controller="ForksController">
+    <body class="container" ng-controller="ForksController" ng-cloak>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand">Github repository forks</a>
+                    <a class="navbar-brand">Github fork stats</a>
                 </div>
                 <form class="navbar-form left" role="search" ng-submit="getForks()">
                     <input class="form-control" ng-model="user" name="user" type="text" placeholder="user">
