@@ -1,1 +1,6 @@
-
+Sprint 2
+- Create folder structure css, js, lib, partials
+- Separate app, controller and services in different files
+- Using ng-include for templates
+- Add bootstrap CSS to css
+- Add minified version of libs
