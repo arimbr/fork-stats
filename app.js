@@ -12,10 +12,10 @@
     app.controller('ForkController', function($http){
         var fork = this;  // Store this to be accesible in getForks
         fork.search = {};  // initialize search data
-        fork.forks = {};  // initialize forks because page will render before
+        fork.forks = [];  // initialize forks because page will render before
 
         this.getForks = function() {
-            var forksURL = 'https://api.github.com/repos/' + this.search.user + '/' + this.search.repo + '/forks';
+            var forksURL = 'https://api.github.com/repos/' + fork.search.user + '/' + fork.search.repo + '/forks';
             $http.get(forksURL).success(function(data) {  // data is automatically parsed from JSON to JS object
                 console.log(data);
                 fork.forks = data;

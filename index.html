@@ -14,7 +14,7 @@
         <section>
             <h2>Forks</h2>
             <div ng-repeat="fork in forkCtrl.forks">
-                <p>{{fork.owner.login}}</p>
+                <p>{{fork.owner.login}} | {{fork.created_at | date}}</p>
             </div>
         </section>
         <script type="text/javascript" src="lib/angular.js"></script>
