@@ -4,3 +4,5 @@ Sprint 2
 - Using ng-include for templates
 + Add bootstrap CSS to css
 - Add minified version of libs
+- Add link to forker profile
+- Add "Sorry, nobody gave a fork" when there are no forks for a repo
