@@ -32,7 +32,10 @@ var app = angular.module('forks', ['ngResource','ui.bootstrap']);
         $scope.currentPage = 1;
         $scope.maxSize = 5;
 
-        $scope.getForksCount = function() {
+
+        // Should we make helper functions (getForksCount, checkCurrentPage) private -- out of scope?
+        // We don't need access to them on the view layer
+        var getForksCount = function() {
             Repository.get({user: $scope.user, repo: $scope.repo},
                 function(data){  // get method expects an object data
                     $scope.forksCount = data.forks_count;
@@ -45,7 +48,19 @@ var app = angular.module('forks', ['ngResource','ui.bootstrap']);
             );
         };
 
+        // Resolve the issue of sending 2 requests when changing 'display per page' parameter
+        var checkCurrentPage = function() {
+            // Math.ceil() returns the smallest integer greater than or equal to a given number
+            var numberOfPages = Math.ceil($scope.forksCount / $scope.perPage); 
+            if (numberOfPages!=0) {
+                if ($scope.currentPage > numberOfPages) {
+                    $scope.currentPage = 1; 
+                }
+            }
+        };
+
         $scope.getForks = function() {
+            checkCurrentPage();
             Forks.query({user: $scope.user, repo: $scope.repo, page: $scope.currentPage, perPage: $scope.perPage},
                     function(data) {  // query method expects array data
                         $scope.forks = data;
@@ -66,7 +81,7 @@ var app = angular.module('forks', ['ngResource','ui.bootstrap']);
         };
 
         $scope.submit = function() {
-            $scope.getForksCount();
+            getForksCount();
             $scope.getForks();
         }
 
