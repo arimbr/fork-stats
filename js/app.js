@@ -25,6 +25,7 @@ var app = angular.module('forks', ['ngResource','ui.bootstrap']);
         // Pagination
         $scope.perPage = '30'; // Set default choice to 30 (options: 30, 50, 100)
         $scope.currentPage = 1;
+        $scope.maxSize = 5;
 
         // How to use Factory to return different GETs ?
         $scope.getForksCount = function() {
@@ -32,6 +33,7 @@ var app = angular.module('forks', ['ngResource','ui.bootstrap']);
             $http.get(url)
             .success(function(data){
                 $scope.forksCount = data.forks_count;
+                console.log(data.forks_count);
             });
         };
 
