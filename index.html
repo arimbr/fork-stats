@@ -26,9 +26,10 @@
             </div>
         </nav>
         <div class="alert alert-danger" role="alert" ng-show="error">Error! Repository not found.</div>
-        <article class="panel panel-primary" ng-hide="error">
-            <div class="panel-heading">Last forks</div>
-            <ul class="list-group" ng-repeat="fork in forks">
+        <div class="alert alert-danger" role="alert" ng-show="noFork">Sorry, nobody gave a fork!</div>
+        <article class="panel panel-primary" ng-hide="error || noFork">
+            <div class="panel-heading">Last forks</div>           
+            <ul class="list-group" ng-repeat="fork in forks" ng-hide="noFork">
                 <li class="list-group-item">
                     {{fork.owner.login}}
                     <span class="pull-right">{{fork.created_at | date}}</span>

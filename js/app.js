@@ -18,6 +18,7 @@
     app.controller('ForksController', ['$scope', 'Forks', function($scope, Forks){
         $scope.forks = {};  // initialize forks because page will render before
         $scope.error = false;
+        $scope.noFork = false; // check if repo has no forks
         $scope.user = "angular";
         $scope.repo = "angular";
         $scope.perPage = '30'; // Set default choice to 30 (options: 30, 50, 100)
@@ -30,6 +31,11 @@
                 function(data) {  // query expects array data
                     $scope.forks = data;
                     $scope.error = false;
+                    $scope.noFork = false;
+                    if (data.length==0) {
+                        $scope.noFork = true;
+                        console.log($scope.noFork);
+                    };
                 },
                 function(response) {
                     if(response.status === 404) {
@@ -39,6 +45,7 @@
                 }
             );
         };
+
         $scope.getForks();  // Get forks for Angular
     }]);
 })();
