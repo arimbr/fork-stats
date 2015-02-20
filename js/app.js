@@ -17,8 +17,8 @@ var app = angular.module('forks', ['ngResource','ui.bootstrap']);
     // Implement Fork controller
     app.controller('ForksController', ['$scope','$http' ,'Forks', function($scope,$http ,Forks){
         $scope.forks = {};  // initialize forks because page will render before
-        $scope.error = false;
-        $scope.noFork = false; // check if repo has no forks
+        $scope.noRepo = false;
+        $scope.noFork = false;
         $scope.user = "angular";
         $scope.repo = "angular";
 
@@ -39,7 +39,7 @@ var app = angular.module('forks', ['ngResource','ui.bootstrap']);
             Forks.query({user: $scope.user, repo: $scope.repo, page: $scope.currentPage, perPage: $scope.perPage},
                     function(data) {  // query expects array data
                         $scope.forks = data;
-                        $scope.error = false;
+                        $scope.noRepo = false;
                         $scope.noFork = false;
                         if (data.length==0) {
                             $scope.noFork = true;
@@ -48,7 +48,8 @@ var app = angular.module('forks', ['ngResource','ui.bootstrap']);
                     function(response) {
                         if(response.status === 404) {
                             $scope.forks = {};
-                            $scope.error = true;
+                            $scope.noRepo = true;
+                            $scope.noFork = false;
                         }
                     }
             );

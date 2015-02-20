@@ -26,9 +26,9 @@
             </div>
         </nav>
         <pagination total-items="forksCount" items-per-page="perPage" ng-model="currentPage" ng-change="getForks()" ></pagination>
-        <div class="alert alert-danger" role="alert" ng-show="error">Error! Repository not found.</div>
+        <div class="alert alert-danger" role="alert" ng-show="noRepo">Error! Repository not found.</div>
         <div class="alert alert-danger" role="alert" ng-show="noFork">Sorry, nobody gave a fork!</div>
-        <article class="panel panel-primary" ng-hide="error || noFork">
+        <article class="panel panel-primary" ng-hide="noRepo || noFork">
             <div class="panel-heading">Last forks</div>           
             <ul class="list-group" ng-repeat="fork in forks" ng-hide="noFork">
                 <li class="list-group-item">
