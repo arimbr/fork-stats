@@ -27,11 +27,11 @@
         </nav>
         <pagination total-items="forksCount" items-per-page="perPage" ng-model="currentPage" ng-change="getForks()" 
         max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
-        <div class="alert alert-danger" role="alert" ng-show="error">Error! Repository not found.</div>
+        <div class="alert alert-danger" role="alert" ng-show="noRepo">Sorry, repository not found!</div>
         <div class="alert alert-danger" role="alert" ng-show="noFork">Sorry, nobody gave a fork!</div>
-        <article class="panel panel-primary" ng-hide="error || noFork">
+        <article class="panel panel-primary" ng-hide="noRepo || noFork">
             <div class="panel-heading">Last forks <span class="label label-success pull-right">Total forks: {{ forksCount }}</span></div>
-            <ul class="list-group" ng-repeat="fork in forks" ng-hide="noFork">
+            <ul class="list-group" ng-repeat="fork in forks">
                 <li class="list-group-item">
                     <a ng-href=" {{ fork.owner.html_url }}">{{ fork.owner.login }}</a>
                     <span class="pull-right">{{ fork.created_at | date }}</span>
