@@ -9,7 +9,6 @@
 var app = angular.module('forks', ['ngResource','ui.bootstrap']);
 
     // Add factory Forks
-    // http://www.sitepoint.com/creating-crud-app-minutes-angulars-resource/
     app.factory('Forks', ['$resource', function($resource){
         return $resource('https://api.github.com/repos/:user/:repo/forks?page=:page&per_page=:perPage');
     }]);
@@ -21,20 +20,17 @@ var app = angular.module('forks', ['ngResource','ui.bootstrap']);
 
     // Implement Fork controller
     app.controller('ForksController', ['$scope', 'Repository', 'Forks', function($scope, Repository, Forks){
-        $scope.forks = {};  // initialize forks because page will render before
+        $scope.forks = [];  // initialize forks because page will render before
         $scope.noRepo = false;
         $scope.noFork = false;
-        $scope.user = "angular";
-        $scope.repo = "angular";
+        $scope.user = 'angular';
+        $scope.repo = 'angular';
 
         // Pagination
-        $scope.perPage = '30'; // Set default choice to 30 (options: 30, 50, 100)
+        $scope.perPage = '30';  // Set default choice to 30 (options: 30, 50, 100)
         $scope.currentPage = 1;
         $scope.maxSize = 5;
 
-
-        // Should we make helper functions (getForksCount, checkCurrentPage) private -- out of scope?
-        // We don't need access to them on the view layer
         var getForksCount = function() {
             Repository.get({user: $scope.user, repo: $scope.repo},
                 function(data){  // get method expects an object data
@@ -42,7 +38,7 @@ var app = angular.module('forks', ['ngResource','ui.bootstrap']);
                 },
                 function(response) {
                     if(response.status === 404) {
-                        $scope.forksCount = 0;
+                        $scope.noRepo = true;
                     }
                 }
             );
@@ -52,7 +48,7 @@ var app = angular.module('forks', ['ngResource','ui.bootstrap']);
         var checkCurrentPage = function() {
             // Math.ceil() returns the smallest integer greater than or equal to a given number
             var numberOfPages = Math.ceil($scope.forksCount / $scope.perPage); 
-            if (numberOfPages!=0) {
+            if (numberOfPages != 0) {
                 if ($scope.currentPage > numberOfPages) {
                     $scope.currentPage = 1; 
                 }
@@ -72,7 +68,7 @@ var app = angular.module('forks', ['ngResource','ui.bootstrap']);
                     },
                     function(response) {
                         if(response.status === 404) {
-                            $scope.forks = {};
+                            $scope.forks = [];
                             $scope.noRepo = true;
                             $scope.noFork = false;
                         }
@@ -81,6 +77,7 @@ var app = angular.module('forks', ['ngResource','ui.bootstrap']);
         };
 
         $scope.submit = function() {
+            $scope.currentPage = 1;  // Set current page to 1 after we search for a new repository
             getForksCount();
             $scope.getForks();
         }
