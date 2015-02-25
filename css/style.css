@@ -11,17 +11,45 @@ body {
     margin-top: 20px;
 }
 
+.navbar-brand {
+    font-size: 28px;
+}
+
+/* Mobile version */
 @media (max-width: 768px){
-	.form-control {
-		margin-bottom: 5px;
-	}
-	.btn-container {
-		width: 100%;
-	}
-	.btn-group {
-		width: 134px;
-	}
-	.btn-primary {
-		width: 47%;
-	}
+
+    .navbar-brand {
+        display: block;
+        float: center;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        height: auto;
+    }
+
+    .navbar, .center-mobile, .pagination {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    .pagination {
+        margin-bottom: 10px;
+    }
+
+    .form-control {
+        margin-bottom: 5px;
+    }
+
+    .btn-group {
+        width: 100%;
+        margin-bottom: 3px;
+    }
+    .btn-success {
+        width: 33.33%;
+        width: calc(100% / 3);
+    }
+    .btn-primary {
+        width: 100%;
+    }
 }
