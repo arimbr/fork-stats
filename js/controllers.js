@@ -8,11 +8,21 @@
 
     // Implement Fork controller
     controllers.controller('ForksController', ['$scope', 'Repository', 'Forks', function($scope, Repository, Forks){
+        // Local variables
+        var messages = {"noRepo": "Sorry, repository not found.",
+                        "noFork": "Sorry, nobody gave a fork!",
+                        "noPermission": "Sorry, you do not have permission. You might have ran out of limit requests."
+                    } // To avoid hard code and repetiton
+
+        // Global variables
         $scope.forks = [];  // initialize forks because page will render before
         $scope.noRepo = false;
         $scope.noFork = false;
+        $scope.noPermission = false;
+        $scope.showMessage = false;
         $scope.user = 'angular';
         $scope.repo = 'angular';
+        $scope.message = '';
 
         // Pagination
         $scope.perPage = '30';  // Set default choice to 30 (options: 30, 50, 100)
@@ -23,11 +33,6 @@
             Repository.get({user: $scope.user, repo: $scope.repo},
                 function(data){  // get method expects an object data
                     $scope.forksCount = data.forks_count;
-                },
-                function(response) {
-                    if(response.status === 404) {
-                        $scope.noRepo = true;
-                    }
                 }
             );
         };
@@ -48,17 +53,21 @@
             Forks.query({user: $scope.user, repo: $scope.repo, page: $scope.currentPage, perPage: $scope.perPage},
                     function(data) {  // query method expects array data
                         $scope.forks = data;
-                        $scope.noRepo = false;
-                        $scope.noFork = false;
+                        $scope.showMessage = false;
                         if (data.length == 0) {
-                            $scope.noFork = true;
+                            $scope.showMessage = true;
+                            $scope.message = messages["noFork"];
                         };
                     },
                     function(response) {
                         if(response.status === 404) {
                             $scope.forks = [];
-                            $scope.noRepo = true;
-                            $scope.noFork = false;
+                            $scope.showMessage = true;
+                            $scope.message = messages["noRepo"];
+                        }
+                        else if (response.status === 403) {
+                            $scope.showMessage = true;
+                            $scope.message = messages["noPermission"];
                         }
                     }
             );

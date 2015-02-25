@@ -11,32 +11,37 @@
         <nav class="navbar navbar-primary">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="">Github fork stats</a>
+                    <a class="navbar-brand" href="index.html">Github fork stats</a>
                 </div>
                 <form class="navbar-form navbar-right" role="search" ng-submit="submit()">
-                    <input class="form-control" ng-model="user" name="user" type="text" placeholder="user">
-                    <input class="form-control" ng-model="repo" name="repo" type="text" placeholder="repository">
-                    <div class="btn-group">
-                        <label class="btn btn-success" ng-model="perPage" btn-radio="'30'" ng-change="getForks()">30</label>
-                        <label class="btn btn-success" ng-model="perPage" btn-radio="'50'" ng-change="getForks()">50</label>
-                        <label class="btn btn-success" ng-model="perPage" btn-radio="'100'" ng-change="getForks()">100</label>
+                    <input class="form-control" ng-model="user" name="user" type="text" placeholder="user" required>
+                    <input class="form-control" ng-model="repo" name="repo" type="text" placeholder="repository" required>
+                    <div class="btn-group" popover="Display per page" popover-trigger="mouseenter" popover-placement="bottom">
+                        <label class="btn btn-success" ng-model="perPage" btn-radio="'30'">30</label>
+                        <label class="btn btn-success" ng-model="perPage" btn-radio="'50'">50</label>
+                        <label class="btn btn-success" ng-model="perPage" btn-radio="'100'">100</label>
                     </div>
                     <button class="btn btn-primary" type="submit">Search</button>
                 </form>
             </div>
         </nav>
         <pagination total-items="forksCount" items-per-page="perPage" ng-model="currentPage" ng-change="getForks()" 
-        max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
-        <div class="alert alert-danger" role="alert" ng-show="noRepo">Sorry, repository not found!</div>
-        <div class="alert alert-danger" role="alert" ng-show="noFork">Sorry, nobody gave a fork!</div>
-        <article class="panel panel-primary" ng-hide="noRepo || noFork">
-            <div class="panel-heading">Last forks <span class="label label-success pull-right">Total forks: {{ forksCount }}</span></div>
-            <ul class="list-group" ng-repeat="fork in forks">
-                <li class="list-group-item">
-                    <a ng-href=" {{ fork.owner.html_url }}">{{ fork.owner.login }}</a>
-                    <span class="pull-right">{{ fork.created_at | date }}</span>
-                </li>
-            </ul>
+        max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" ng-hide="showMessage"></pagination>
+        <div class="alert alert-danger" role="alert" ng-show="showMessage"> {{ message }}</div>
+        <article class="panel panel-primary" ng-hide="showMessage">
+            <div class="panel-heading">Total forks: {{ forksCount }}</span></div>
+            <table class="table table-striped table-hover">
+            <tr>
+                <th>#</th>
+                <th>User</th>
+                <th>Date forked</th>
+            </tr>
+                <tr ng-repeat="fork in forks">
+                    <td>{{ forks.indexOf(fork) + 1}}
+                    <td><a ng-href=" {{ fork.owner.html_url }}">{{ fork.owner.login }}</a></th>
+                    <td>{{ fork.created_at | date }}</th>
+                </tr>
+            </table>   
         </article>
         <script type="text/javascript" src="lib/angular.js"></script>
         <script type="text/javascript" src="lib/angular-resource.js"></script>
