@@ -10,3 +10,18 @@
 body {
     margin-top: 20px;
 }
+
+@media (max-width: 768px){
+	.form-control {
+		margin-bottom: 5px;
+	}
+	.btn-container {
+		width: 100%;
+	}
+	.btn-group {
+		width: 134px;
+	}
+	.btn-primary {
+		width: 47%;
+	}
+}
