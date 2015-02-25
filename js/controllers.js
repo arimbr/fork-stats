@@ -25,7 +25,7 @@
         // Pagination
         $scope.perPage = '30';  // Set default choice to 30 (options: 30, 50, 100)
         $scope.currentPage = 1;
-        $scope.maxSize = 5;
+        $scope.maxSize = 3;  // So there is no overflow in mobile devices
 
         var getForksCount = function() {
             Repository.get({user: $scope.user, repo: $scope.repo},

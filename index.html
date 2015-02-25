@@ -28,17 +28,19 @@
         <pagination total-items="forksCount" items-per-page="perPage" ng-model="currentPage" ng-change="getForks()" 
         max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" ng-hide="showMessage"></pagination>
         <div class="alert alert-danger" role="alert" ng-show="showMessage"> {{ message }}</div>
-        <article class="panel panel-primary" ng-hide="showMessage">
-            <div class="panel-heading">Total forks: {{ forksCount }}</span></div>
-            <table class="table table-striped table-hover">
+        <article ng-hide="showMessage">
+            <table class="table table-striped table-hover table-bordered">
             <tr>
                 <th>#</th>
                 <th>User</th>
-                <th>Date forked</th>
+                <th>Fork</th>
+                <th>Date</th>
             </tr>
                 <tr ng-repeat="fork in forks">
-                    <td>{{ forks.indexOf(fork) + 1}}
+                    <!-- Calculate the fork number chronologically -->
+                    <td>{{ forksCount - (currentPage - 1) * perPage + forks.indexOf(fork) }}<td>
                     <td><a ng-href=" {{ fork.owner.html_url }}">{{ fork.owner.login }}</a></th>
+                    <th><a ng-href=" {{ fork.html_url }}">{{ fork.name }}</a></th>
                     <td>{{ fork.created_at | date }}</th>
                 </tr>
             </table>   
