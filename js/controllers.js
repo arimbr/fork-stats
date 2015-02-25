@@ -16,8 +16,6 @@
 
         // Global variables
         $scope.forks = [];  // initialize forks because page will render before
-        $scope.noRepo = false;
-        $scope.noFork = false;
         $scope.noPermission = false;
         $scope.showMessage = false;
         $scope.user = 'angular';
