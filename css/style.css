@@ -15,6 +15,21 @@ body {
     font-size: 28px;
 }
 
+.affix {
+    top: 10px;
+    left: 45%;
+}
+
+.affix-top {
+    top: 164px;
+    left: 45%;
+    position: absolute;
+}
+
+.graph {
+    background-color: rgb(249, 249, 249);
+}
+
 /* Mobile version */
 @media (max-width: 768px){
 
@@ -54,4 +69,17 @@ body {
 	.btn-primary {
         width: 100%;
 	}
+
+    .affix {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+
+    .affix-top {
+        position: relative;
+        left: 0;
+        top: 0;
+    }
+
 }
