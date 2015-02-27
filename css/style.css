@@ -45,11 +45,13 @@ body {
         width: 100%;
         margin-bottom: 3px;
     }
+
     .btn-success {
         width: 33.33%;
         width: calc(100% / 3);
     }
-    .btn-primary {
+
+	.btn-primary {
         width: 100%;
-    }
+	}
 }

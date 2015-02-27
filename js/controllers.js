@@ -14,9 +14,7 @@
                         "noPermission": "Sorry, you do not have permission. You might have ran out of limit requests."
                     } // To avoid hard code and repetiton
 
-        // Global variables
         $scope.forks = [];  // initialize forks because page will render before
-        $scope.noPermission = false;
         $scope.showMessage = false;
         $scope.user = 'angular';
         $scope.repo = 'angular';
