@@ -64,6 +64,7 @@
                 setCurrentPage(1);
                 setForksCount();
                 $scope.getForks();
+                $scope.$apply();  // notify that scope data has changed
             }
 
             $scope.submit();  // Get forks for Angular

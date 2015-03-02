@@ -12,7 +12,12 @@
                 restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
                 templateUrl: '../partials/linegraph.html',
                 link: function(scope, elem, attrs, controller) {
-                    
+
+
+                    // This does not get fired
+                    scope.$watch('jobs', function(newVal, oldVal) {
+                        alert(newVal);
+                    });
                 }
             };
         }]);
