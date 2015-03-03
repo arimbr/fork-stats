@@ -83,3 +83,14 @@ body {
     }
 
 }
+
+
+.chart {
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
