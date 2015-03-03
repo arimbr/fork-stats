@@ -40,13 +40,18 @@
                             d3.select(".chart").remove();  // Clean before drawing
 
                             var h = 400;
-                            var pad = 40;
+                            var pad = 50;
 
                             var svg = d3.select(elem[0])
                                         .append('svg')
                                         .attr('class', 'chart')
                                         .style('width', '100%')
                                         .style('height', h);
+
+                            var lineFunction = d3.svg.line()
+                                                    .x(function(d, i) { return xScale(format.parse(d)); })
+                                                    .y(function(d, i) { console.log(i); return yScale(firstFork + i); })
+                                                    .interpolate("linear");
 
                             var xScale = d3.time.scale()
                                             .domain([minDate, maxDate])
@@ -75,6 +80,13 @@
                                 .attr("class", "axis")
                                 .attr("transform", "translate(" + pad + ", 0)")
                                 .call(yAxis);
+
+                            // Draw the line
+                            svg.append("path")
+                                .attr("d", lineFunction(dates.reverse()))
+                                .attr("stroke", "blue")
+                                .attr("stroke-width", 2)
+                                .attr("fill", "none");
                         }
                         
                     });
