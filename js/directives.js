@@ -10,7 +10,7 @@
             // Runs during compile
             return {
                 restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-                templateUrl: '../partials/linegraph.html',
+                //templateUrl: '../partials/linegraph.html',
                 link: function(scope, elem, attrs, controller) {
                     // scope has access to the ForkController scope
                     // console.log(scope.forks);
