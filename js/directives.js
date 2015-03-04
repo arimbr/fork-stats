@@ -15,13 +15,9 @@
                     // scope has access to the ForkController scope
                     // console.log(scope.forks);
 
-                    // Watch for changes in forks in the ForksController
-                    scope.$watch('forks', function(newVal, oldVal) {
-                        console.log("Forks have been updated");
-                        // console.log(newVal[0].created_at);
-                        // From here we will render the graph
+                    scope.render = function(data) {
                         dates = [];
-                        newVal.forEach(function(fork) {
+                        data.forEach(function(fork) {
                             dates.push(fork.created_at);
                         });
                         if (dates.length > 0) {
@@ -88,6 +84,15 @@
                                 .attr("stroke-width", 2)
                                 .attr("fill", "none");
                         }
+                        
+                    }
+
+                    // Watch for changes in forks in the ForksController
+                    scope.$watch('forks', function(newVal, oldVal) {
+                        console.log("Forks have been updated");
+                        // console.log(newVal[0].created_at);
+                        // From here we will render the graph
+                        scope.render(newVal);
                         
                     });
                 }
