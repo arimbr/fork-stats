@@ -86,6 +86,7 @@ body {
 
 
 .chart {
+    height: 400px;  /* If changing height change also in directives.js h */
 }
 
 .axis path,
