@@ -23,7 +23,6 @@
                             dates.push(fork.created_at);
                         });
                         if (dates.length > 0) {
-                            console.log(dates);
 
                             var format = d3.time.format("%Y-%m-%dT%H:%M:%SZ");
                             //alert(format.parse(dates[0]));
@@ -48,7 +47,7 @@
 
                             var lineFunction = d3.svg.line()
                                                     .x(function(d, i) { return xScale(format.parse(d)); })
-                                                    .y(function(d, i) { console.log(i); return yScale(firstFork + i); })
+                                                    .y(function(d, i) { return yScale(firstFork + i); })
                                                     .interpolate("linear");
 
                             var xScale = d3.time.scale()
@@ -79,12 +78,39 @@
                                 .attr("transform", "translate(" + pad + ", 0)")
                                 .call(yAxis);
 
+                            var tip = d3.tip()
+                                .attr('class', 'd3-tip')
+                                .offset([120, 40])
+                                .html(function(d,i) {
+                                    var amount = firstFork + i;
+                                    var date = format.parse(d);
+                                    var resultString = "Amount: "+amount;
+                                    resultString += "</br>";
+                                    resultString += "Date: " + date;
+                                    return resultString;
+                                });
+
+                            svg.call(tip);    
+
                             // Draw the line
                             svg.append("path")
                                 .attr("d", lineFunction(dates.reverse()))
                                 .attr("stroke", "blue")
                                 .attr("stroke-width", 2)
                                 .attr("fill", "none");
+
+                            svg.selectAll(".dot")
+                                  .data(dates)
+                                  .enter().append("circle")
+                                  .attr('class', 'datapoint')
+                                  .attr('cx', function(d,i) { return xScale(format.parse(d)); })
+                                  .attr('cy', function(d,i) { return yScale(firstFork + i); })
+                                  .attr('r', 6)
+                                  .attr('fill', 'white')
+                                  .attr('stroke', 'steelblue')
+                                  .attr('stroke-width', '3')
+                                  .on('mouseover', tip.show)
+                                  .on('mouseout', tip.hide);
                         }
                         
                     }
@@ -101,6 +127,7 @@
                     scope.$watch(function() {
                         return angular.element(window)[0].innerWidth;
                     }, function() {
+                        console.log("Forks have been updated");
                         scope.render(scope.forks);
                     });
 
