@@ -29,8 +29,8 @@
                             var maxDate = format.parse(dates[0]);
                             var minDate = format.parse(dates[dates.length - 1]);
 
-                            var firstFork = Math.max(scope.forksCount - (scope.currentPage - 1) * scope.perPage - scope.perPage, 0);
                             var lastFork = scope.forksCount - (scope.currentPage - 1) * scope.perPage;
+                            var firstFork = Math.max(lastFork - scope.perPage + 1, 1);  // In case there are less forks than perPage, minimun is 1
                             // BUG: what if dates are equal, only one fork????
                             //alert(minDate + " " + maxDate);
                             d3.select(".chart").remove();  // Clean before drawing
@@ -46,7 +46,7 @@
 
                             var lineFunction = d3.svg.line()
                                                     .x(function(d, i) { return xScale(format.parse(d)); })
-                                                    .y(function(d, i) { console.log(i); return yScale(firstFork + (i + 1)); })
+                                                    .y(function(d, i) { console.log(i); return yScale(firstFork + i); })
                                                     .interpolate("step-after");
 
                             var xScale = d3.time.scale()
