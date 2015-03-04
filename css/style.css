@@ -83,3 +83,15 @@ body {
     }
 
 }
+
+
+.chart {
+    height: 400px;  /* If changing height change also in directives.js h */
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
