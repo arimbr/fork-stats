@@ -72,7 +72,13 @@
                             svg.append("g")
                                 .attr("class", "axis")
                                 .attr("transform", "translate(0," + (h - pad) + ")")
-                                .call(xAxis);
+                                .call(xAxis)
+                                .selectAll("text")
+                                .attr("y", 9)
+                                .attr("x", 9)
+                                .attr("dy", ".35em")
+                                .attr("transform", "rotate(45)")
+                                .style("text-anchor", "start");
 
                             svg.append("g")
                                 .attr("class", "axis")
