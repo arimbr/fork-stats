@@ -30,8 +30,8 @@
                             var maxDate = format.parse(dates[0]);
                             var minDate = format.parse(dates[dates.length - 1]);
 
-                            var firstFork = Math.max(scope.forksCount - (scope.currentPage - 1) * scope.perPage - scope.perPage - 1, 0);
-                            var lastFork = scope.forksCount - (scope.currentPage - 1) * scope.perPage - 1;
+                            var lastFork = scope.forksCount - (scope.currentPage - 1) * scope.perPage;
+                            var firstFork = Math.max(lastFork - scope.perPage + 1, 1);  // In case there are less forks than perPage, minimun is 1
                             // BUG: what if dates are equal, only one fork????
                             //alert(minDate + " " + maxDate);
                             d3.select(".chart").remove();  // Clean before drawing
@@ -47,8 +47,8 @@
 
                             var lineFunction = d3.svg.line()
                                                     .x(function(d, i) { return xScale(format.parse(d)); })
-                                                    .y(function(d, i) { return yScale(firstFork + i); })
-                                                    .interpolate("linear");
+                                                    .y(function(d, i) { console.log(i); return yScale(firstFork + i); })
+                                                    .interpolate("step-after");
 
                             var xScale = d3.time.scale()
                                             .domain([minDate, maxDate])
@@ -71,7 +71,13 @@
                             svg.append("g")
                                 .attr("class", "axis")
                                 .attr("transform", "translate(0," + (h - pad) + ")")
-                                .call(xAxis);
+                                .call(xAxis)
+                                .selectAll("text")
+                                .attr("y", 9)
+                                .attr("x", 9)
+                                .attr("dy", ".35em")
+                                .attr("transform", "rotate(45)")
+                                .style("text-anchor", "start");
 
                             svg.append("g")
                                 .attr("class", "axis")
