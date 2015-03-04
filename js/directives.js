@@ -6,7 +6,7 @@
 (function(){
     angular.module('forksDirectives', [])
 
-        .directive('lineGraph', [function(){
+        .directive('lineGraph', ['$window',function(){
             // Runs during compile
             return {
                 restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
@@ -14,6 +14,8 @@
                 link: function(scope, elem, attrs, controller) {
                     // scope has access to the ForkController scope
                     // console.log(scope.forks);
+
+                    
 
                     scope.render = function(data) {
                         dates = [];
@@ -93,8 +95,18 @@
                         // console.log(newVal[0].created_at);
                         // From here we will render the graph
                         scope.render(newVal);
-                        
                     });
+
+                    // Watch for window resize event
+                    scope.$watch(function() {
+                        return angular.element(window)[0].innerWidth;
+                    }, function() {
+                        scope.render(scope.forks);
+                    });
+
+                    window.onresize = function() {
+                        scope.$apply();
+                    };
                 }
             };
         }]);
