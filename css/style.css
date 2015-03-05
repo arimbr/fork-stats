@@ -88,6 +88,17 @@ body {
 .chart {
     height: 400px;  /* If changing height change also in directives.js h */
 }
+.d3-tip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+}
+.datapoint:hover{
+    fill: steelblue;
+}
 
 .axis path,
 .axis line {
