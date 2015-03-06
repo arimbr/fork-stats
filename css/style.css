@@ -31,6 +31,37 @@ body {
     padding: 10px;
 }
 
+
+.d3-tip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+}
+.datapoint:hover{
+    fill: steelblue;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.footer {
+    border-top: solid 1px;
+    border-top-color: rgb(221, 221, 221);
+    padding: 20px;
+}
+
+.statistics {
+    min-height: 600px; /* To avoid footer going up when table has less than 10 entries */
+}
+
+
 /* Mobile version */
 @media (max-width: 768px){
 
@@ -53,7 +84,7 @@ body {
         margin-bottom: 10px;
     }
 
-    .form-control {
+    .input-group {
         margin-bottom: 5px;
     }
 
@@ -84,31 +115,8 @@ body {
     .ribbon {
         display: none;
     }
-
-}
-
-
-.d3-tip {
-    line-height: 1;
-    font-weight: bold;
-    padding: 12px;
-    background: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    border-radius: 2px;
-}
-.datapoint:hover{
-    fill: steelblue;
-}
-
-.axis path,
-.axis line {
-    fill: none;
-    stroke: black;
-    shape-rendering: crispEdges;
-}
-
-.footer {
-    border-top: solid 1px;
-    border-top-color: rgb(221, 221, 221);
-    padding: 20px;
+    .footer {
+        padding: 0;
+        padding-top: 10px;
+    }
 }

@@ -37,7 +37,7 @@
                             //alert(minDate + " " + maxDate);
                             d3.select(".chart").remove();  // Clean before drawing
 
-                            var h = 450;
+                            var h = 400;
                             var pad = {
                                 left: 50,
                                 bottom: 80
@@ -96,7 +96,7 @@
                                 .html(function(d,i) {
                                     var amount = firstFork + i;
                                     var date = d3.time.format('%b %-d')(format.parse(d));
-                                    var resultString = "Amount: "+amount;
+                                    var resultString = "Forks: "+amount;
                                     resultString += "</br>";
                                     resultString += "Date: " + date;
                                     return resultString;
@@ -106,7 +106,7 @@
 
                             svg.append("text")
                               .attr("class", "ylabel")
-                              .attr("y", -5) // x and y switched due to rotation!!
+                              .attr("y", -12) // x and y switched due to rotation!!
                               .attr("x", 0 - (h / 2))
                               .attr("dy", "1em")
                               .attr("transform", "rotate(-90)")
@@ -118,7 +118,7 @@
                               .attr("y", h - 10)
                               .attr("x", parseInt(svg.style("width"))/2)
                               .style("text-anchor", "middle")
-                              .text("Time");   
+                              .text("Date");   
 
                             // Draw the line
                             svg.append("path")
