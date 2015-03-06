@@ -106,3 +106,9 @@ body {
     stroke: black;
     shape-rendering: crispEdges;
 }
+
+.footer {
+    border-top: solid 1px;
+    border-top-color: rgb(221, 221, 221);
+    padding: 20px;
+}

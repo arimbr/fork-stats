@@ -4,10 +4,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Github fork stats</title>
+        <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
         <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
         <link rel="stylesheet" href="css/style.css" type="text/css">
     </head>
     <body class="container" ng-controller="ForksController" ng-cloak>
+        <a href="https://github.com/arimbr/fork-stats"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
         <nav class="navbar navbar-primary">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -25,6 +27,7 @@
                 </form>
             </div>
         </nav>
+
         <div class="center-mobile">
             <pagination total-items="forksCount" items-per-page="perPage" ng-model="currentPage" ng-change="getForks()" 
             max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" ng-hide="showMessage" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
@@ -54,6 +57,12 @@
                     </tr>
                 </table>   
             </div>
+        </div>
+        <div class="footer">
+            <p>@ Metropolia 2015, by <a href="https://github.com/arimbr/">Ari</a> and <a href="https://github.com/whoami1201">Bao</a>
+            
+            <iframe class="pull-right"src="http://ghbtns.com/github-btn.html?user=arimbr&repo=fork-stats&type=star&count=true"
+            allowtransparency="true" frameborder="0" scrolling="0" width="80" height="20"></iframe></p>
         </div>
         <script src="http://d3js.org/d3.v3.min.js"></script>
         <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
