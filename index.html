@@ -18,7 +18,7 @@
                 <form class="navbar-form navbar-right" role="search" ng-submit="submit()">
                     <div class="input-group">
                         <span class="input-group-addon">user</span>
-                        <input class="form-control" ng-model="user" ng-model-options="{ updateOn: 'submit' }" name="user" type="text" placeholder="angular" required>
+                        <input class="form-control" ng-model="user" ng-model-options="{ updateOn: 'submit' }" name="user" type="text" placeholder="user" required>
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon">repo</span>
@@ -41,7 +41,7 @@
         <div class="row" ng-show="showMessage">
                 <div class="alert alert-danger" role="alert"> {{ message }}</div>
         </div>
-        <div class="row" ng-hide="showMessage">
+        <div class="row statistics" ng-hide="showMessage">
             <div class="col-md-5 col-sm-6 col-xs-12 graph text-center" data-spy="affix" data-offset-top="154">
                 <!-- This is wheere we draw the graph -->
                 <line-graph></line-graph>

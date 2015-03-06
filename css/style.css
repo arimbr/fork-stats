@@ -57,6 +57,10 @@ body {
     padding: 20px;
 }
 
+.statistics {
+    min-height: 600px; /* To avoid footer going up when table has less than 10 entries */
+}
+
 
 /* Mobile version */
 @media (max-width: 768px){
@@ -80,7 +84,7 @@ body {
         margin-bottom: 10px;
     }
 
-    .form-control {
+    .input-group {
         margin-bottom: 5px;
     }
 

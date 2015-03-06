@@ -96,7 +96,7 @@
                                 .html(function(d,i) {
                                     var amount = firstFork + i;
                                     var date = d3.time.format('%b %-d')(format.parse(d));
-                                    var resultString = "Amount: "+amount;
+                                    var resultString = "Forks: "+amount;
                                     resultString += "</br>";
                                     resultString += "Date: " + date;
                                     return resultString;
@@ -118,7 +118,7 @@
                               .attr("y", h - 10)
                               .attr("x", parseInt(svg.style("width"))/2)
                               .style("text-anchor", "middle")
-                              .text("Time");   
+                              .text("Date");   
 
                             // Draw the line
                             svg.append("path")
