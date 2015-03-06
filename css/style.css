@@ -28,6 +28,7 @@ body {
 
 .graph {
     background-color: rgb(249, 249, 249);
+    padding: 10px;
 }
 
 /* Mobile version */
@@ -70,24 +71,19 @@ body {
         width: 100%;
 	}
 
-    .affix {
+    .affix, .affix-top {
         position: relative;
         top: 0;
         left: 0;
     }
 
-    .affix-top {
-        position: relative;
-        left: 0;
-        top: 0;
+    .graph {
+        padding: 0;
     }
 
 }
 
 
-.chart {
-    height: 400px;  /* If changing height change also in directives.js h */
-}
 .d3-tip {
     line-height: 1;
     font-weight: bold;

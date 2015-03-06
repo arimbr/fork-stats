@@ -22,6 +22,7 @@
                         data.forEach(function(fork) {
                             dates.push(fork.created_at);
                         });
+                        console.log(dates);
                         if (dates.length > 0) {
 
                             var format = d3.time.format("%Y-%m-%dT%H:%M:%SZ");
@@ -36,27 +37,32 @@
                             //alert(minDate + " " + maxDate);
                             d3.select(".chart").remove();  // Clean before drawing
 
-                            var h = 400;
-                            var pad = 50;
+                            var h = 450;
+                            var pad = {
+                                left: 50,
+                                bottom: 80
+                            }
 
                             var svg = d3.select(elem[0])
                                         .append('svg')
                                         .attr('class', 'chart')
                                         .style('width', '100%')
-                                        .style('height', h);
+                                        .style('height', h)
+                                        .style('padding-left','10px');
 
                             var lineFunction = d3.svg.line()
                                                     .x(function(d, i) { return xScale(format.parse(d)); })
-                                                    .y(function(d, i) { console.log(i); return yScale(firstFork + i); })
+                                                    .y(function(d, i) { return yScale(firstFork + i); })
                                                     .interpolate("step-after");
+
 
                             var xScale = d3.time.scale()
                                             .domain([minDate, maxDate])
-                                            .range([pad, parseInt(svg.style("width"), 10) - pad]);
+                                            .range([pad.left, parseInt(svg.style("width"), 10) - pad.bottom]);
 
                             var yScale = d3.scale.linear()
                                             .domain([lastFork, firstFork])
-                                            .range([pad, h - pad]);
+                                            .range([pad.left, h - pad.bottom]);
 
                             var xAxis = d3.svg.axis()
                                             .scale(xScale)
@@ -70,7 +76,7 @@
                             
                             svg.append("g")
                                 .attr("class", "axis")
-                                .attr("transform", "translate(0," + (h - pad) + ")")
+                                .attr("transform", "translate(0," + (h - pad.bottom) + ")")
                                 .call(xAxis)
                                 .selectAll("text")
                                 .attr("y", 9)
@@ -81,7 +87,7 @@
 
                             svg.append("g")
                                 .attr("class", "axis")
-                                .attr("transform", "translate(" + pad + ", 0)")
+                                .attr("transform", "translate(" + pad.left + ", 0)")
                                 .call(yAxis);
 
                             var tip = d3.tip()
@@ -89,14 +95,30 @@
                                 .offset([120, 40])
                                 .html(function(d,i) {
                                     var amount = firstFork + i;
-                                    var date = format.parse(d);
+                                    var date = d3.time.format('%b %-d')(format.parse(d));
                                     var resultString = "Amount: "+amount;
                                     resultString += "</br>";
                                     resultString += "Date: " + date;
                                     return resultString;
                                 });
 
-                            svg.call(tip);    
+                            svg.call(tip); 
+
+                            svg.append("text")
+                              .attr("class", "ylabel")
+                              .attr("y", -5) // x and y switched due to rotation!!
+                              .attr("x", 0 - (h / 2))
+                              .attr("dy", "1em")
+                              .attr("transform", "rotate(-90)")
+                              .style("text-anchor", "middle")
+                              .text("Total forks count");
+
+                            svg.append("text")
+                              .attr("class", "graphtitle")
+                              .attr("y", h - 10)
+                              .attr("x", parseInt(svg.style("width"))/2)
+                              .style("text-anchor", "middle")
+                              .text("Time");   
 
                             // Draw the line
                             svg.append("path")
@@ -109,7 +131,7 @@
                                   .data(dates)
                                   .enter().append("circle")
                                   .attr('class', 'datapoint')
-                                  .attr('cx', function(d,i) { return xScale(format.parse(d)); })
+                                  .attr('cx', function(d) { return xScale(format.parse(d)); })
                                   .attr('cy', function(d,i) { return yScale(firstFork + i); })
                                   .attr('r', 6)
                                   .attr('fill', 'white')
@@ -117,6 +139,7 @@
                                   .attr('stroke-width', '3')
                                   .on('mouseover', tip.show)
                                   .on('mouseout', tip.hide);
+
                         }
                         
                     }
@@ -129,16 +152,8 @@
                         scope.render(newVal);
                     });
 
-                    // Watch for window resize event
-                    scope.$watch(function() {
-                        return angular.element(window)[0].innerWidth;
-                    }, function() {
-                        console.log("Forks have been updated");
-                        scope.render(scope.forks);
-                    });
-
                     window.onresize = function() {
-                        scope.$apply();
+                        scope.render(scope.forks);
                     };
                 }
             };
