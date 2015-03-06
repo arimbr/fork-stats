@@ -38,7 +38,7 @@ body {
         display: block;
         float: center;
         text-align: center;
-        margin: 0;
+        margin:10px 0;
         padding: 0;
         height: auto;
     }
@@ -79,6 +79,10 @@ body {
 
     .graph {
         padding: 0;
+    }
+
+    .ribbon {
+        display: none;
     }
 
 }
