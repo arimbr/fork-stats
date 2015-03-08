@@ -25,9 +25,9 @@
                         <input class="form-control" ng-model="repo" ng-model-options="{ updateOn: 'submit' }" name="repo" type="text" placeholder="repository" required>
                     </div>
                     <div class="btn-group" popover="Display per page" popover-trigger="mouseenter" popover-placement="bottom">
-                        <label class="btn btn-success" ng-model="perPage" btn-radio="'30'">30</label>
-                        <label class="btn btn-success" ng-model="perPage" btn-radio="'50'">50</label>
-                        <label class="btn btn-success" ng-model="perPage" btn-radio="'100'">100</label>
+                        <label class="btn btn-success" ng-model="perPageButton" btn-radio="'30'">30</label>
+                        <label class="btn btn-success" ng-model="perPageButton" btn-radio="'50'">50</label>
+                        <label class="btn btn-success" ng-model="perPageButton" btn-radio="'100'">100</label>
                     </div>
                     <button class="btn btn-primary" type="submit">Search</button>
                 </form>
@@ -36,7 +36,7 @@
 
         <div class="center-mobile">
             <pagination total-items="forksCount" items-per-page="perPage" ng-model="currentPage" ng-change="getForks()" 
-            max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" ng-hide="showMessage" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+            max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" ng-hide="showMessage && perPage === 1" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
         </div>
         <div class="row" ng-show="showMessage">
                 <div class="alert alert-danger" role="alert"> {{ message }}</div>
@@ -60,7 +60,7 @@
                         <td>{{ forksCount - (currentPage - 1) * perPage - forks.indexOf(fork) }}</td>
                         <td><a ng-href=" {{ fork.owner.html_url }}">{{ fork.owner.login }}</a></td>
                         <td><a ng-href=" {{ fork.html_url }}">{{ fork.name }}</a></td>
-                        <td>{{ fork.created_at | date }}</td>
+                        <td>{{ fork.created_at | date: 'MMM d, yyyy' : 'UTC'}}</td> <!-- We show UTC+0 to have same date than in graph, not browser local time -->
                     </tr>
                 </table>   
             </div>
