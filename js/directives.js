@@ -14,21 +14,19 @@
                     // scope has access to the ForkController scope
                     // console.log(scope.forks);
 
-                    
-
                     scope.render = function(data) {
                         dates = [];
                         data.forEach(function(fork) {
-                            dates.push(fork.created_at);
+                            dates.push(fork.created_at);  // fork date in iso-format YYYY-MM-DDTHH:MM:SSZ
                         });
                         // console.log(dates);
                         if (dates.length > 0) {
 
-                            var format = d3.time.format("%Y-%m-%dT%H:%M:%SZ");
+                            var dateFormat = d3.time.format("%Y-%m-%dT%H:%M:%SZ");
                             //alert(format.parse(dates[0]));
                             //alert(angular.elem($window)[0].innerWidth);
-                            var maxDate = format.parse(dates[0]);
-                            var minDate = format.parse(dates[dates.length - 1]);
+                            var maxDate = dateFormat.parse(dates[0]);
+                            var minDate = dateFormat.parse(dates[dates.length - 1]);
 
                             var lastFork = scope.forksCount - (scope.currentPage - 1) * scope.perPage;
                             var firstFork = Math.max(lastFork - scope.perPage + 1, 1);  // In case there are less forks than perPage, minimun is 1
@@ -50,7 +48,7 @@
 
                             // When applied to a data array, returns coordinate points that will be joined
                             var lineFunction = d3.svg.line()
-                                                    .x(function(d, i) { return xScale(format.parse(d)); })
+                                                    .x(function(d, i) { return xScale(dateFormat.parse(d)); })
                                                     .y(function(d, i) { return yScale(firstFork + i); })
                                                     .interpolate("step-after");
 
@@ -66,8 +64,7 @@
                             var xAxis = d3.svg.axis()
                                             .scale(xScale)
                                             .orient("bottom")
-                                            .tickFormat(d3.time.format('%b %-d'))
-                                            .tickPadding(10);
+                                            .tickFormat(d3.time.format('%b %-d'));
 
                             var yAxis = d3.svg.axis()
                                             .scale(yScale)
@@ -96,9 +93,10 @@
                                 .attr('class', 'd3-tip')
                                 .offset([120, 40])
                                 .html(function(d,i) {
+                                    console.log(d, i);
                                     var amount = firstFork + i;
-                                    var date = d3.time.format('%b %-d')(format.parse(d));
-                                    var resultString = "Forks: "+amount;
+                                    var date = d3.time.format('%b %-d, %Y')(dateFormat.parse(d));
+                                    var resultString = "Forks count: "+amount;
                                     resultString += "</br>";
                                     resultString += "Date: " + date;
                                     return resultString;
@@ -122,7 +120,7 @@
                               .attr("y", h - 10)
                               .attr("x", parseInt(svg.style("width"))/2)
                               .style("text-anchor", "middle")
-                              .text("Date");   
+                              .text("Time");   
 
                             // Draw graph lines
                             svg.append("path")
@@ -136,7 +134,7 @@
                                   .data(dates)
                                   .enter().append("circle")
                                   .attr('class', 'datapoint')
-                                  .attr('cx', function(d) { return xScale(format.parse(d)); })
+                                  .attr('cx', function(d) { return xScale(dateFormat.parse(d)); })
                                   .attr('cy', function(d,i) { return yScale(firstFork + i); })
                                   .attr('r', 6)
                                   .attr('fill', 'white')
@@ -157,6 +155,7 @@
                         scope.render(newVal);
                     });
 
+                    // Re render the graph after resizing the screen
                     window.onresize = function() {
                         scope.render(scope.forks);
                     };
