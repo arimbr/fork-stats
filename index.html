@@ -36,7 +36,7 @@
 
         <div class="center-mobile">
             <pagination total-items="forksCount" items-per-page="perPage" ng-model="currentPage" ng-change="getForks()" 
-            max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" ng-hide="showMessage" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+            max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" ng-hide="showMessage && perPage === 1" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
         </div>
         <div class="row" ng-show="showMessage">
                 <div class="alert alert-danger" role="alert"> {{ message }}</div>
