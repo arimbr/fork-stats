@@ -10,7 +10,6 @@
             // Runs during compile
             return {
                 restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-                //templateUrl: '../partials/linegraph.html',
                 link: function(scope, elem, attrs, controller) {
                     // scope has access to the ForkController scope
                     // console.log(scope.forks);
@@ -22,7 +21,7 @@
                         data.forEach(function(fork) {
                             dates.push(fork.created_at);
                         });
-                        console.log(dates);
+                        // console.log(dates);
                         if (dates.length > 0) {
 
                             var format = d3.time.format("%Y-%m-%dT%H:%M:%SZ");
@@ -33,13 +32,12 @@
 
                             var lastFork = scope.forksCount - (scope.currentPage - 1) * scope.perPage;
                             var firstFork = Math.max(lastFork - scope.perPage + 1, 1);  // In case there are less forks than perPage, minimun is 1
-                            // BUG: what if dates are equal, only one fork????
                             //alert(minDate + " " + maxDate);
                             d3.select(".chart").remove();  // Clean before drawing
 
-                            var h = 400;
+                            var h = 400;  /* also set in stylesheet */
                             var pad = {
-                                left: 50,
+                                left: 60,
                                 bottom: 80
                             }
 
@@ -50,6 +48,7 @@
                                         .style('height', h)
                                         .style('padding-left','10px');
 
+                            // When applied to a data array, returns coordinate points that will be joined
                             var lineFunction = d3.svg.line()
                                                     .x(function(d, i) { return xScale(format.parse(d)); })
                                                     .y(function(d, i) { return yScale(firstFork + i); })
@@ -74,6 +73,7 @@
                                             .scale(yScale)
                                             .orient("left");
                             
+                            // Draw X axis
                             svg.append("g")
                                 .attr("class", "axis")
                                 .attr("transform", "translate(0," + (h - pad.bottom) + ")")
@@ -85,11 +85,13 @@
                                 .attr("transform", "rotate(45)")
                                 .style("text-anchor", "start");
 
+                            // Draw Y axis
                             svg.append("g")
                                 .attr("class", "axis")
                                 .attr("transform", "translate(" + pad.left + ", 0)")
                                 .call(yAxis);
 
+                            // Draw data tips in graph
                             var tip = d3.tip()
                                 .attr('class', 'd3-tip')
                                 .offset([120, 40])
@@ -104,29 +106,32 @@
 
                             svg.call(tip); 
 
+                            // Draw graph Y axis label
                             svg.append("text")
                               .attr("class", "ylabel")
-                              .attr("y", -12) // x and y switched due to rotation!!
+                              .attr("y", 0) // x and y switched due to rotation!!
                               .attr("x", 0 - (h / 2))
                               .attr("dy", "1em")
                               .attr("transform", "rotate(-90)")
                               .style("text-anchor", "middle")
                               .text("Total forks count");
 
+                            // Draw graph X axis label
                             svg.append("text")
-                              .attr("class", "graphtitle")
+                              .attr("class", "xlabel")
                               .attr("y", h - 10)
                               .attr("x", parseInt(svg.style("width"))/2)
                               .style("text-anchor", "middle")
                               .text("Date");   
 
-                            // Draw the line
+                            // Draw graph lines
                             svg.append("path")
                                 .attr("d", lineFunction(dates.reverse()))
                                 .attr("stroke", "blue")
                                 .attr("stroke-width", 2)
                                 .attr("fill", "none");
 
+                            // Draw circles
                             svg.selectAll(".dot")
                                   .data(dates)
                                   .enter().append("circle")
