@@ -93,9 +93,8 @@
                                 .attr('class', 'd3-tip')
                                 .offset([120, 40])
                                 .html(function(d,i) {
-                                    console.log(d, i);
                                     var amount = firstFork + i;
-                                    var date = d3.time.format('%b %-d, %Y')(dateFormat.parse(d));
+                                    var date = d3.time.format('%I:%M %b %-d, %Y')(dateFormat.parse(d));
                                     var resultString = "Forks count: "+amount;
                                     resultString += "</br>";
                                     resultString += "Date: " + date;
